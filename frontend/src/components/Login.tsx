@@ -32,7 +32,6 @@ const Login = (props: Props) => {
       if (response.isOk) {
         const token = response.data.token;
         localStorage.setItem("token", token);
-        console.log(token);
         history("/");
         props.showAlert({ msg: "LogedIn Successfully", type: "success" });
         return;

@@ -86,7 +86,7 @@ const removeUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({is_admin: false}).select("-password"); // Exclude passwords from the result
+    const users = await User.find().select("-password"); // Exclude passwords from the result
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });

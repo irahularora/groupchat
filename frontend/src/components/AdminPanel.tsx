@@ -174,27 +174,31 @@ const AdminPanel: React.FC<Props> = ({ showAlert, adminInfo }) => {
           <tbody>
             {users.map((user, index) => (
               <>
-                {user._id !== adminInfo.id && (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{user.username}</td>
-                    <td>{user.is_admin ? "Admin" : "User"}</td>
-                    <td>
-                      <button
-                        onClick={() => handleEditUser(user)}
-                        className="edit-btn"
-                      >
-                        Edit
-                      </button>
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>
+                    {user.username}
+                    {user._id === adminInfo.id ? " (You) " : ""}
+                  </td>
+                  <td>{user.is_admin ? "Admin" : "User"}</td>
+                  <td>
+                    <button
+                      onClick={() => handleEditUser(user)}
+                      className="edit-btn"
+                    >
+                      <section></section>
+                      Edit
+                    </button>
+                    {user._id !== adminInfo.id && (
                       <button
                         onClick={() => handleDeleteUser(user._id || "")}
                         className="delete-btn"
                       >
                         Delete
                       </button>
-                    </td>
-                  </tr>
-                )}
+                    )}
+                  </td>
+                </tr>
               </>
             ))}
           </tbody>

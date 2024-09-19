@@ -546,10 +546,6 @@ textarea.invalid {
   transition: background-color 0.3s;
 }
 
-.create-group-btn:hover {
-  background-color: #45a049;
-}
-
 .chat-list {
   list-style-type: none;
   padding: 0;
