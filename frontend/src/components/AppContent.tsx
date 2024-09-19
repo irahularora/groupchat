@@ -69,7 +69,7 @@ export const AppContent: React.FC = () => {
         />
         <Route
           path="/group"
-          element={isLoggedIn() ? <EditGroup showAlert={showAlert} /> : <Navigate to="/login" />}
+          element={isLoggedIn() ? (userInfo &&  <EditGroup userInfo={userInfo} showAlert={showAlert} />) : <Navigate to="/login" />}
         />
         <Route
           path="/"

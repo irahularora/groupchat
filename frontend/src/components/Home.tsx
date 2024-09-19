@@ -19,7 +19,7 @@ const Home: React.FC<Props> = ({ userInfo }) => {
   const [selectedGroup, setSelectedGroup] = useState<ApiGroup | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
-  
+
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,9 +34,33 @@ const Home: React.FC<Props> = ({ userInfo }) => {
 
   useEffect(() => {
     if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (selectedGroup) {
+      const fetchMessages = async () => {
+        const result = await getMessagesByGroupId(selectedGroup._id);
+        if (result.isOk && result.data) {
+          setMessages(result.data.messages);
+        }
+      };
+
+      fetchMessages(); // Fetch messages immediately on selection
+
+      intervalId = setInterval(fetchMessages, 5000); // Poll every 5 seconds
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [selectedGroup]);
 
   const fetchUpdatedMessages = async (id: string) => {
     const result = await getMessagesByGroupId(id);
@@ -112,11 +136,9 @@ const Home: React.FC<Props> = ({ userInfo }) => {
                 </div>
                 <h3>{selectedGroup.name}</h3>
               </div>
-              {selectedGroup.admin === userInfo.id && (
-                <button className="settings-btn" onClick={handleSettingsClick}>
-                  <i className="fas fa-cog"></i>
-                </button>
-              )}
+              <button className="settings-btn" onClick={handleSettingsClick}>
+                <i className="fas fa-cog"></i>
+              </button>
             </header>
             <div className="message-container" ref={messageContainerRef}>
               {messages.map((message) => (

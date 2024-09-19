@@ -23,6 +23,7 @@ const Navbar = ({ showAlert, userInfo }: Props) => {
         style={{ backgroundColor: "#004085" }}
       >
         <Link className="navbar-brand" to="/">
+        <img src="logo.png" alt="logo" style={{width: "2rem"}} />
           GroupChat
         </Link>
         <button
