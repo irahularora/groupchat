@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   getUserGroups,
   getMessagesByGroupId,
@@ -19,6 +19,8 @@ const Home: React.FC<Props> = ({ userInfo }) => {
   const [selectedGroup, setSelectedGroup] = useState<ApiGroup | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
+  
+  const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -29,6 +31,12 @@ const Home: React.FC<Props> = ({ userInfo }) => {
     };
     fetchGroups();
   }, []);
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const fetchUpdatedMessages = async (id: string) => {
     const result = await getMessagesByGroupId(id);
@@ -104,22 +112,21 @@ const Home: React.FC<Props> = ({ userInfo }) => {
                 </div>
                 <h3>{selectedGroup.name}</h3>
               </div>
-              {selectedGroup.admin == userInfo.id && (
+              {selectedGroup.admin === userInfo.id && (
                 <button className="settings-btn" onClick={handleSettingsClick}>
                   <i className="fas fa-cog"></i>
                 </button>
               )}
             </header>
-            <div className="message-container">
+            <div className="message-container" ref={messageContainerRef}>
               {messages.map((message) => (
-                <div className="contact-info-message">
+                <div className="contact-info-message" key={message._id}>
                   {message.sender.username !== userInfo.username && (
                     <div className="group-logo-message">
                       {getProfileName(message.sender.username)}
                     </div>
                   )}
                   <div
-                    key={message._id}
                     className={`message ${
                       message.sender.username === userInfo.username
                         ? "sent"
