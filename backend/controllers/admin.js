@@ -27,16 +27,15 @@ const createUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   const { id } = req.params;
-  const { username, password } = req.body;
+  const { username, password, is_admin } = req.body;
 
-  // Validate input
   if (password && password.length < 6) {
     return res
       .status(400)
       .json({ error: "Password must be at least 6 characters long" });
   }
 
-  const updateData = {};
+  const updateData = {is_admin: is_admin};
   if (username) {
     const existingUser = await User.findOne({ username });
     if (existingUser && existingUser._id.toString() !== id) {
@@ -87,7 +86,7 @@ const removeUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password"); // Exclude passwords from the result
+    const users = await User.find({is_admin: false}).select("-password"); // Exclude passwords from the result
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
