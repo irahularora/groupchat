@@ -16,7 +16,7 @@ const sendMessage = async (req, res) => {
 
     const message = new Message({ groupId, text, sender: req.user._id });
     await message.save();
-    res.status(201).json({ message: "Message sent" });
+    res.status(201).json({ message: "Message sent", messageId: message._id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

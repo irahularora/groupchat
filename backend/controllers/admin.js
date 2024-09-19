@@ -19,7 +19,12 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword, is_admin });
     await user.save();
-    res.status(201).json({ message: "User created" });
+    res
+      .status(201)
+      .json({
+        message: "User created",
+        user: { _id: user._id, username: user.username },
+      });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -35,7 +40,7 @@ const editUser = async (req, res) => {
       .json({ error: "Password must be at least 6 characters long" });
   }
 
-  const updateData = {is_admin: is_admin};
+  const updateData = { is_admin: is_admin };
   if (username) {
     const existingUser = await User.findOne({ username });
     if (existingUser && existingUser._id.toString() !== id) {
