@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { createGroup, updateGroup, getGroupById, getUsers } from "../api/api";
+import { AlertType } from "./types";
 
-const EditGroup: React.FC = () => {
+interface Props {
+  showAlert: (message: AlertType) => void;
+}
+
+const EditGroup: React.FC<Props> = ({ showAlert }) => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const groupId = searchParams.get("id");
-  const isEdit = groupId !== null 
+  const isEdit = groupId !== null;
   const [groupName, setGroupName] = useState<string>("");
   const [groupDescription, setGroupDescription] = useState<string>("");
   const [members, setMembers] = useState<string[]>([]);
-  const [allUsers, setAllUsers] = useState<{ _id: string; username: string }[]>([]);
+  const [allUsers, setAllUsers] = useState<{ _id: string; username: string }[]>(
+    []
+  );
   const [newMember, setNewMember] = useState<string>("");
-  const [memberSuggestions, setMemberSuggestions] = useState<{ _id: string; username: string }[]>([]);
+  const [memberSuggestions, setMemberSuggestions] = useState<
+    { _id: string; username: string }[]
+  >([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isGroupNameValid, setIsGroupNameValid] = useState<boolean>(true);
-  const [isGroupDescriptionValid, setIsGroupDescriptionValid] = useState<boolean>(true);
+  const [isGroupDescriptionValid, setIsGroupDescriptionValid] =
+    useState<boolean>(true);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,7 +33,7 @@ const EditGroup: React.FC = () => {
       try {
         const usersList = await getUsers();
         setAllUsers(usersList.data);
-        
+
         if (isEdit && groupId) {
           const groupDetails = await getGroupById(groupId!);
           setGroupName(groupDetails.data.name);
@@ -63,7 +74,7 @@ const EditGroup: React.FC = () => {
   };
 
   const addMember = () => {
-    const selectedUser = allUsers.find(user => user.username === newMember);
+    const selectedUser = allUsers.find((user) => user.username === newMember);
     if (selectedUser && !members.includes(selectedUser._id)) {
       setMembers([...members, selectedUser._id]);
       setNewMember("");
@@ -94,7 +105,7 @@ const EditGroup: React.FC = () => {
             members,
           });
           if (response.isOk) {
-            console.log("Group updated:", groupName);
+            showAlert({ msg: "Group Updated Successfully", type: "success" });
           } else {
             setErrorMessage("Error updating group.");
           }
@@ -105,7 +116,7 @@ const EditGroup: React.FC = () => {
             members,
           });
           if (response.isOk) {
-            console.log("Group created:", groupName);
+            showAlert({ msg: "Group Created Successfully", type: "success" });
           } else {
             setErrorMessage("Error creating group.");
           }
@@ -120,7 +131,12 @@ const EditGroup: React.FC = () => {
 
   return (
     <div className="group-management">
-      <h2 style={{ textAlign: "left" }}>{isEdit ? "Edit Group" : "Create Group"}</h2>
+      <button onClick={() => navigate(-1)} className="back-button">
+        <i className="fa-solid fa-arrow-left"></i>  Back
+      </button>
+      <h2 style={{ textAlign: "left" }}>
+        {isEdit ? "Edit Group" : "Create Group"}
+      </h2>
 
       <div className="form-group">
         <label htmlFor="groupName">Group Name</label>
@@ -172,7 +188,7 @@ const EditGroup: React.FC = () => {
         <label>Members</label>
         <ul className="member-list">
           {members.map((memberId, i) => {
-            const user = allUsers.find(user => user._id === memberId);
+            const user = allUsers.find((user) => user._id === memberId);
             return (
               user && (
                 <li key={i} className="member-item">

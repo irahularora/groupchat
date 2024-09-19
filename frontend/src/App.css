@@ -5,18 +5,30 @@ body {
   font-style: normal;
   box-sizing: border-box;
 }
-.main-container{
+.alert {
+  margin: 0;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+}
+.back-button {
+  background: none;
+  background-color: orangered;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.main-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-.nav-profile-div{
+.nav-profile-div {
   display: flex;
   flex-direction: row;
 }
 
-.nav-profile-div a{
+.nav-profile-div a {
   color: white !important;
   font-weight: 500;
 }
@@ -99,7 +111,7 @@ button[type="submit"] {
   margin-top: 1.5rem;
 }
 
-button{
+button {
   border: none;
 }
 button[type="submit"]:hover {
@@ -511,7 +523,7 @@ textarea.invalid {
   flex-direction: column;
 }
 
-.group-h2{
+.group-h2 {
   margin: 0 !important;
   font-size: 1.2rem;
 }
@@ -525,7 +537,7 @@ textarea.invalid {
 }
 
 .create-group-btn {
-  background-color: darkgreen;
+  background-color: orangered;
   color: white;
   border: none;
   padding: 5px 8px;
@@ -623,7 +635,7 @@ textarea.invalid {
   font-weight: 500;
 }
 
-.message-info{
+.message-info {
   font-size: 0.8rem;
   margin: 0;
   margin-top: 1rem;
@@ -633,7 +645,7 @@ textarea.invalid {
   justify-content: space-between;
 }
 
-.message-info p{
+.message-info p {
   margin: 0;
   color: grey;
 }

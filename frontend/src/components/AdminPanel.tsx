@@ -1,11 +1,13 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { createUser, editUser, deleteUser, getUsers } from "../api/api"; // Ensure this path is correct
-import { User, UserInfo } from "../components/types";
+import { AlertType, User, UserInfo } from "../components/types";
 
 interface Props {
+  showAlert: (message: AlertType) => void;
   adminInfo: UserInfo;
 }
-const AdminPanel = (props: Props) => {
+
+const AdminPanel: React.FC<Props> = ({ showAlert, adminInfo }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User>({
     username: "",
@@ -39,8 +41,8 @@ const AdminPanel = (props: Props) => {
 
   const handleCreateUser = async () => {
     const result = await createUser(user);
-    console.log(result)
     if (result.isOk) {
+      showAlert({ msg: "Group Created Successfully", type: "success" });
       fetchUsers();
       resetForm();
     } else {
@@ -56,6 +58,7 @@ const AdminPanel = (props: Props) => {
       }
       const result = await editUser(user._id, updateData);
       if (result.isOk) {
+        showAlert({ msg: "User Updated Successfully", type: "success" });
         fetchUsers();
         resetForm();
       } else {
@@ -146,7 +149,11 @@ const AdminPanel = (props: Props) => {
             {editMode ? "Update" : "Create"} User
           </button>
           {editMode && (
-            <button type="button" style={{backgroundColor: "orangered", marginTop: "1rem"}} onClick={resetForm}>
+            <button
+              type="button"
+              style={{ backgroundColor: "orangered", marginTop: "1rem" }}
+              onClick={resetForm}
+            >
               Cancel
             </button>
           )}
@@ -167,7 +174,7 @@ const AdminPanel = (props: Props) => {
           <tbody>
             {users.map((user, index) => (
               <>
-                {user._id !== props.adminInfo.id && (
+                {user._id !== adminInfo.id && (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user.username}</td>

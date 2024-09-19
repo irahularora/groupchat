@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { jwtDecode } from "jwt-decode";
 
-import { Alert } from "./Alert";
 import Login from "./Login";
 import AdminPanel from "./AdminPanel";
 import EditGroup from "./EditGroup";
 import ChatPage from "./Chat";
+import { Alert } from "./Alert";
 
 export const AppContent: React.FC = () => {
   const location = useLocation();
@@ -49,7 +49,7 @@ export const AppContent: React.FC = () => {
       {!hideNavbar && userInfo && (
         <Navbar showAlert={showAlert} userInfo={userInfo} />
       )}
-      {/* <Alert message={alert} /> */}
+      <Alert message={alert} />
       <Routes>
         <Route
           path="/login"
@@ -61,7 +61,7 @@ export const AppContent: React.FC = () => {
           path="/panel"
           element={
             isLoggedIn() && userInfo?.is_admin ? (
-              <AdminPanel adminInfo={userInfo} />
+              <AdminPanel showAlert={showAlert} adminInfo={userInfo} />
             ) : (
               <Navigate to="/login" />
             )
@@ -69,7 +69,7 @@ export const AppContent: React.FC = () => {
         />
         <Route
           path="/group"
-          element={isLoggedIn() ? <EditGroup /> : <Navigate to="/login" />}
+          element={isLoggedIn() ? <EditGroup showAlert={showAlert} /> : <Navigate to="/login" />}
         />
         <Route
           path="/"

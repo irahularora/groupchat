@@ -39,7 +39,6 @@ const ChatPage: React.FC<Props> = ({ userInfo }) => {
 
   const selectGroup = async (group: ApiGroup) => {
     setSelectedGroup(group);
-    console.log(group)
     fetchUpdatedMessages(group._id);
   };
 
@@ -105,7 +104,7 @@ const ChatPage: React.FC<Props> = ({ userInfo }) => {
                 </div>
                 <h3>{selectedGroup.name}</h3>
               </div>
-              {userInfo.is_admin && (
+              {selectedGroup.admin == userInfo.id && (
                 <button className="settings-btn" onClick={handleSettingsClick}>
                   <i className="fas fa-cog"></i>
                 </button>

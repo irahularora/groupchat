@@ -44,10 +44,8 @@ const Navbar = ({ showAlert, userInfo }: Props) => {
                 location.pathname === "/" ? "active" : ""
               }`}
             >
-              <Link to="/">
-                <a className="nav-link">
-                  Home <span className="sr-only">(current)</span>
-                </a>
+              <Link className="nav-link" to="/">
+                Home <span className="sr-only">(current)</span>
               </Link>
             </li>
             {userInfo?.is_admin && (
@@ -56,8 +54,8 @@ const Navbar = ({ showAlert, userInfo }: Props) => {
                   location.pathname === "/panel" ? "active" : ""
                 }`}
               >
-                <Link to="/panel">
-                  <a className="nav-link">Panel</a>
+                <Link className="nav-link" to="/panel">
+                  Panel
                 </Link>
               </li>
             )}
@@ -70,7 +68,9 @@ const Navbar = ({ showAlert, userInfo }: Props) => {
             >
               Logout
             </a>
-            <div className="group-logo">{getProfileName(userInfo.username)}</div>
+            <div className="group-logo">
+              {getProfileName(userInfo.username)}
+            </div>
           </div>
         </div>
       </nav>
