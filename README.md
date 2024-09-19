@@ -1,1 +1,62 @@
-# messenger
+# Group Chat
+
+## Overview
+
+This project is a group chat application that consists of both a frontend and backend. It allows users to communicate in real-time and is built using Node.js for the backend and a suitable framework for the frontend.
+
+## Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- Node.js
+- npm
+- Python (for running tests)
+
+## Installation
+
+1. Clone the repository:
+```bash
+   git clone https://github.com/irahularora/groupchat
+   cd groupchat
+```
+
+2. Install dependencies for both frontend and backend:
+```bash
+   npm install
+```
+
+3. Navigate to the `tests` directory and install the required Python packages:
+```bash
+   cd tests
+   pip install -r requirements.txt
+```
+
+## Running the Application
+
+To start both the frontend and backend simultaneously, run:
+```bash
+    npm run start
+```
+
+## User Login
+
+For the first-time user, the default login credentials are:
+- **Username:** admin
+- **Password:** admin
+
+To run the tests, execute:
+```bash
+    python main.py
+```
+
+## Dependencies
+
+- **Backend Dependencies:**
+  - mongodb: For database operations.
+  
+- **Development Dependencies:**
+  - concurrently: To run multiple npm scripts simultaneously.
+
+## Note
+
+Make sure that your MongoDB server is running before you start the application.

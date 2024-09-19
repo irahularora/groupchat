@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
-    "test": "cd tests && venv/bin/python -m pytest",
-    "install": "concurrently \"npm install --prefix backend\" \"npm install --prefix frontend\""
+    "install": "cd backend & npm install & cd .. & cd frontend & npm install"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"

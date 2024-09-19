@@ -155,7 +155,7 @@ const EditGroup: React.FC<Props> = ({ showAlert, userInfo }) => {
     }
   };
 
-  const isGroupAdmin = userInfo.id === groupAdmin?._id;
+  const isGroupAdmin = !isEdit || userInfo.id === groupAdmin?._id;
 
   return (
     <div className="group-management">
