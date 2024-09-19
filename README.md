@@ -9,6 +9,7 @@ This project is a group chat application that consists of both a frontend and ba
 Make sure you have the following installed on your machine:
 
 - Node.js
+- MongoDB
 - npm
 - Python (for running tests)
 
@@ -53,9 +54,6 @@ To run the tests, execute:
 
 - **Backend Dependencies:**
   - mongodb: For database operations.
-  
-- **Development Dependencies:**
-  - concurrently: To run multiple npm scripts simultaneously.
 
 ## Note
 
