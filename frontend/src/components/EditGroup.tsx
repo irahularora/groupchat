@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { createGroup, updateGroup, getGroupById, getUsers } from "../api/api";
+import { createGroup, updateGroup, getGroupById, getUsers, deleteGroup } from "../api/api";
 import { AlertType } from "./types";
 
 interface Props {
@@ -92,6 +92,18 @@ const EditGroup: React.FC<Props> = ({ showAlert }) => {
 
   const isFormValid = (): boolean => {
     return isGroupNameValid && isGroupDescriptionValid && groupName.length > 0;
+  };
+
+  const deleteGroupHandler = async () => {
+    if (groupId) {
+      try {
+        await deleteGroup(groupId);
+        showAlert({ msg: "Group Deleted Successfully", type: "success" });
+        navigate("/");
+      } catch (error) {
+        setErrorMessage("Error deleting group.");
+      }
+    }
   };
 
   const saveGroup = async () => {
@@ -246,6 +258,13 @@ const EditGroup: React.FC<Props> = ({ showAlert }) => {
         disabled={!isFormValid()}
       >
         {isSaving ? <span className="loader"></span> : "Save Group"}
+      </button>
+      <button
+       className="save-button"
+       onClick={deleteGroupHandler}
+       style={{backgroundColor: "red", marginTop: "1rem"}}
+      >
+        Delete
       </button>
     </div>
   );

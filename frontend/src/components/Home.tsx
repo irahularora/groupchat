@@ -5,7 +5,7 @@ import {
   sendMessage,
   likeMessage,
 } from "../api/api";
-import { getProfileName, Message, UserInfo } from "../components/types";
+import { getProfileName, Message, UserInfo } from "./types";
 import { ApiGroup } from "../api/types";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ interface Props {
   userInfo: UserInfo;
 }
 
-const ChatPage: React.FC<Props> = ({ userInfo }) => {
+const Home: React.FC<Props> = ({ userInfo }) => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState<ApiGroup[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<ApiGroup | null>(null);
@@ -171,4 +171,4 @@ const ChatPage: React.FC<Props> = ({ userInfo }) => {
   );
 };
 
-export default ChatPage;
+export default Home;

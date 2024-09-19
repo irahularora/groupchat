@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Login from "./Login";
 import AdminPanel from "./AdminPanel";
 import EditGroup from "./EditGroup";
-import ChatPage from "./Chat";
+import Home from "./Home";
 import { Alert } from "./Alert";
 
 export const AppContent: React.FC = () => {
@@ -75,7 +75,7 @@ export const AppContent: React.FC = () => {
           path="/"
           element={
             isLoggedIn() ? (
-              <ChatPage userInfo={userInfo!} />
+              <Home userInfo={userInfo!} />
             ) : (
               <Navigate to="/login" />
             )

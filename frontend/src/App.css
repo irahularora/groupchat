@@ -1,6 +1,6 @@
 html,
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   font-weight: normal;
   font-style: normal;
   box-sizing: border-box;
@@ -143,7 +143,6 @@ button[type="submit"]:disabled {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
-  font-family: "Arial", sans-serif;
 }
 
 .admin-panel-container h1,
@@ -335,7 +334,6 @@ button[type="submit"]:disabled {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
 .form-group {
@@ -513,7 +511,6 @@ textarea.invalid {
 .chat-page {
   display: flex;
   height: 100vh;
-  font-family: "Arial", sans-serif;
 }
 
 .left-panel {
@@ -693,6 +690,10 @@ textarea.invalid {
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-right: 10px;
+}
+
+.message-input input:focus-visible {
+  outline: none;
 }
 
 .message-input button {

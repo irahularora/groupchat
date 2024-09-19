@@ -32,6 +32,7 @@ const request = async (
   }
 };
 
+// Auth Apis
 export const login = async (data: LoginData) => {
   const { username, password } = data;
   const bodyContent = JSON.stringify({ username, password });
@@ -43,6 +44,7 @@ export const login = async (data: LoginData) => {
   return { isOk: false, data: {} };
 };
 
+// Admin Apis
 export const createUser = async (user: User) => {
   return request("/api/admin/users", "POST", user);
 };
@@ -55,6 +57,7 @@ export const deleteUser = async (id: string) => {
   return request(`/api/admin/users/${id}`, "DELETE");
 };
 
+// Groups Apis
 export const getUsers = async () => {
   return request("/api/groups/users/all", "GET");
 };
@@ -79,6 +82,7 @@ export const getGroupById = async (id: string) => {
   return request(`/api/groups/${id}`, "GET");
 };
 
+// Messages Apis
 export const getMessagesByGroupId = async (groupId: string) => {
   return request(`/api/messages/${groupId}`, "GET");
 };
