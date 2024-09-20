@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
 import { login } from "../api/api";
-import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import { AlertType } from "./types";
 
