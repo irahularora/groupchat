@@ -293,13 +293,15 @@ const EditGroup: React.FC<Props> = ({ showAlert, userInfo }) => {
           >
             {isSaving ? <span className="loader"></span> : "Save Group"}
           </button>
-          <button
-            className="save-button"
-            onClick={deleteGroupHandler}
-            style={{ backgroundColor: "red", marginTop: "1rem" }}
-          >
-            Delete
-          </button>
+          {isEdit && (
+            <button
+              className="save-button"
+              onClick={deleteGroupHandler}
+              style={{ backgroundColor: "red", marginTop: "1rem" }}
+            >
+              Delete
+            </button>
+          )}
         </>
       )}
     </div>

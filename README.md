@@ -9,9 +9,9 @@ This project is a group chat application that consists of both a frontend and ba
 Make sure you have the following installed on your machine:
 
 - Node.js
-- MongoDB
 - npm
 - Python (for running tests)
+- MongoDB (for database operations)
 
 ## Installation
 
@@ -32,6 +32,12 @@ Make sure you have the following installed on your machine:
    pip install -r requirements.txt
 ```
 
+4. Update the MongoDB URI in the backend's `.env` file:
+   In `backend/.env`, set the following:
+```bash
+   MONGO_URI=mongodb://localhost:27017/groupchat
+```
+
 ## Running the Application
 
 To start both the frontend and backend simultaneously, run:
@@ -49,11 +55,6 @@ To run the tests, execute:
 ```bash
     python main.py
 ```
-
-## Dependencies
-
-- **Backend Dependencies:**
-  - mongodb: For database operations.
 
 ## Note
 
