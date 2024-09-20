@@ -1,5 +1,5 @@
 const Group = require("../models/group");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const createGroup = async (req, res) => {
   const { name, description, members } = req.body;
@@ -7,8 +7,8 @@ const createGroup = async (req, res) => {
     const group = new Group({
       name,
       description,
-      admin: req.user._id, 
-      members: members || []
+      admin: req.user._id,
+      members: members || [],
     });
     await group.save();
     res.status(201).json({ message: "Group created", group });
@@ -25,14 +25,18 @@ const updateGroup = async (req, res) => {
     if (!group) return res.status(404).json({ message: "Group not found" });
 
     if (group.admin.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "You are not authorized to update this group" });
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to update this group" });
     }
 
     group.name = name || group.name;
     group.description = description || group.description;
 
     if (members) {
-      group.members = members.map(memberId => new mongoose.Types.ObjectId(memberId));
+      group.members = members.map(
+        (memberId) => new mongoose.Types.ObjectId(memberId)
+      );
     }
 
     await group.save();
@@ -42,7 +46,6 @@ const updateGroup = async (req, res) => {
   }
 };
 
-// Delete group
 const deleteGroup = async (req, res) => {
   const { id } = req.params;
   try {
@@ -50,7 +53,9 @@ const deleteGroup = async (req, res) => {
     if (!group) return res.status(404).json({ message: "Group not found" });
 
     if (group.admin.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "You are not authorized to delete this group" });
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to delete this group" });
     }
 
     await Group.findByIdAndDelete(id);
@@ -63,10 +68,7 @@ const deleteGroup = async (req, res) => {
 const getUserGroups = async (req, res) => {
   try {
     const groups = await Group.find({
-      $or: [
-        { admin: req.user._id },
-        { members: req.user._id }
-      ]
+      $or: [{ admin: req.user._id }, { members: req.user._id }],
     });
     res.json(groups);
   } catch (err) {
@@ -90,5 +92,5 @@ module.exports = {
   deleteGroup,
   updateGroup,
   getUserGroups,
-  getGroupById
+  getGroupById,
 };

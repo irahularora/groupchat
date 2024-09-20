@@ -11,7 +11,11 @@ const sendMessage = async (req, res) => {
       group.admin.toString() !== req.user._id.toString() &&
       !group.members.includes(req.user._id)
     ) {
-      return res.status(403).json({ message: "You are not authorized to send messages in this group" });
+      return res
+        .status(403)
+        .json({
+          message: "You are not authorized to send messages in this group",
+        });
     }
 
     const message = new Message({ groupId, text, sender: req.user._id });
@@ -32,7 +36,9 @@ const likeMessage = async (req, res) => {
     const isLiked = message.likes.includes(userId);
 
     if (isLiked) {
-      message.likes = message.likes.filter(id => id.toString() !== userId.toString());
+      message.likes = message.likes.filter(
+        (id) => id.toString() !== userId.toString()
+      );
       await message.save();
       res.json({ message: "Message unliked" });
     } else {
@@ -56,12 +62,16 @@ const getMessagesByGroup = async (req, res) => {
       group.admin.toString() !== req.user._id.toString() &&
       !group.members.includes(req.user._id)
     ) {
-      return res.status(403).json({ message: "You are not authorized to view messages in this group" });
+      return res
+        .status(403)
+        .json({
+          message: "You are not authorized to view messages in this group",
+        });
     }
 
     const messages = await Message.find({ groupId })
-      .populate('sender', 'username')
-      .sort({ createdAt: 1 }); 
+      .populate("sender", "username")
+      .sort({ createdAt: 1 });
 
     res.json({ messages });
   } catch (err) {

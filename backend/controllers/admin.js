@@ -19,12 +19,10 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword, is_admin });
     await user.save();
-    res
-      .status(201)
-      .json({
-        message: "User created",
-        user: { _id: user._id, username: user.username },
-      });
+    res.status(201).json({
+      message: "User created",
+      user: { _id: user._id, username: user.username },
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -91,7 +89,7 @@ const removeUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password"); // Exclude passwords from the result
+    const users = await User.find().select("-password");
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -1,6 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const cors = require('cors');
+const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
@@ -10,9 +10,8 @@ const messageRoutes = require("./routes/message");
 dotenv.config();
 connectDB();
 
-// Temporary cors
 const corsOptions = {
-  origin: "*", // Replace with your client's origin or use '*' for all origins
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type, Authorization",
 };

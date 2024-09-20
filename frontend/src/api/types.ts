@@ -11,7 +11,7 @@ export interface LoginData {
 }
 
 export interface ApiGroup {
-  _id: string; 
+  _id: string;
   name: string;
   description: string;
   members: string[];

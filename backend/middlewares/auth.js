@@ -23,7 +23,6 @@ const verifyAdmin = async (req, res, next) => {
     req.user = await User.findById(decoded.id);
     if (!req.user) return res.status(401).json({ message: "Invalid token" });
 
-    // Check if user is admin
     if (!req.user.is_admin)
       return res.status(403).json({ message: "Access denied" });
 
